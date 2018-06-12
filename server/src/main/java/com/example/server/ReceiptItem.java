@@ -6,6 +6,7 @@ import lombok.Data;
 @Data
 @Builder
 
-public class ParseResponse {
-  private String message;
+public class ReceiptItem {
+  private String description;
+  private double price;
 }

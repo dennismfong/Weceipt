@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @Builder
 
-public class ParseRequest {
+public class UploadRequest {
   private String image;
   private String email;
 }
