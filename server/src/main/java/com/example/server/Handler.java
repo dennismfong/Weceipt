@@ -9,16 +9,14 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
 import org.springframework.stereotype.Controller;
 
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URL;
+import java.util.List;
+import java.util.UUID;
 
 @Controller
 public class Handler {
-    //String clientRegion = "us-west-1";
 
     @RequestMapping("/")
 	@ResponseBody
@@ -45,8 +43,9 @@ public class Handler {
         //String objectKey = System.getenv("S3_OBJ_KEY");
 
         String clientRegion = "us-west-1";
-        String bucketName = "weceiptimages";
-        String objectKey = "test";
+        String bucketName = "weceiptuploads";
+        UUID uuid = UUID.randomUUID();
+        String objectKey = uuid.toString();
 
         try {
             AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
@@ -68,7 +67,7 @@ public class Handler {
                             .withMethod(HttpMethod.PUT)
                             .withExpiration(expiration);
             URL url = s3Client.generatePresignedUrl(generatePresignedUrlRequest);
-            return "Pre-Signed URL: " + url.toString();
+            return url.toString();
         }
         catch(AmazonServiceException e) {
             // The call was transmitted successfully, but Amazon S3 couldn't process
@@ -105,5 +104,14 @@ public class Handler {
     @ResponseBody
     public String scan_image() {
         return "scanned.\n";
+    }
+
+    @RequestMapping(value="/upload", method=RequestMethod.POST, consumes="application/json")
+    @ResponseBody
+    public ParseResponse uploadImage(@RequestBody ParseRequest req) {
+        System.out.println(req.toString());
+        return ParseResponse.builder()
+                .message(req.getImage())
+                .build();
     }
 }
