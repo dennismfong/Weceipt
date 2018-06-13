@@ -19,17 +19,18 @@ public class FinalPrices extends AppCompatActivity {
         setContentView(R.layout.activity_final_prices);
 
         final Intent intent = getIntent();
-        final Bundle extraBundle = intent.getExtras();
-        ArrayList<Integer> prices = extraBundle.getIntegerArrayList("arraylist");
+        Bundle bundle = intent.getExtras();
+        double[] prices = bundle.getDoubleArray("ArrayList");
 
         TextView first = (TextView) findViewById(R.id.finalPrice1);
         TextView second = (TextView) findViewById(R.id.finalPrice2);
         TextView third = (TextView) findViewById(R.id.finalPrice3);
         TextView fourth = (TextView) findViewById(R.id.finalPrice4);
 
-        first.setText("Final Price: " + prices.get(0));
-        second.setText("Final Price: " + prices.get(1));
-        third.setText("Final Price: " + prices.get(2));
-        fourth.setText("Final Price: " + prices.get(3));
-        }
+        first.setText("Final Price: " + prices[0]);
+        second.setText("Final Price: " + prices[1]);
+        third.setText("Final Price: " + prices[2]);
+        fourth.setText("Final Price: " + prices[3]);
+
+    }
 }

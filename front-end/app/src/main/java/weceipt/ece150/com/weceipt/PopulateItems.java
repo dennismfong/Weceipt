@@ -20,10 +20,10 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class PopulateItems extends AppCompatActivity {
-    private int price1 = 0;
-    private int price2 = 0;
-    private int price3 = 0;
-    private int price4 = 0;
+    private double price1 = 0;
+    private double price2 = 0;
+    private double price3 = 0;
+    private double price4 = 0;
     int buttonPressed;
 
     @Override
@@ -66,11 +66,13 @@ public class PopulateItems extends AppCompatActivity {
         final Button finalButton = (Button) findViewById(R.id.splitButton2);
         finalButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                ArrayList<Integer> finalPrices = calculatePrices();
-                Bundle arrayListHolder = new Bundle();
-                arrayListHolder.putIntegerArrayList("arraylist", finalPrices);
+                ArrayList<Double> finalPrices = calculatePrices();
+                double[] finalPricesArray = new double[4];
+                for (int i = 0; i < 4; ++i)
+                    finalPricesArray[i] = finalPrices.get(i);
+
                 Intent intent = new Intent(PopulateItems.this, FinalPrices.class);
-                intent.putExtras(arrayListHolder);
+                intent.putExtra("arraylist", finalPricesArray);
                 startActivity(intent);
             }
         });
@@ -109,8 +111,8 @@ public class PopulateItems extends AppCompatActivity {
         }
     }
 
-    ArrayList<Integer> calculatePrices() {
-        ArrayList<Integer> prices = new ArrayList<Integer>(4);
+    ArrayList<Double> calculatePrices() {
+        ArrayList<Double> prices = new ArrayList<Double>(4);
         LinearLayout l1 = (LinearLayout) findViewById(R.id.top_left);
         final int childCount = l1.getChildCount();
         for (int i = 0; i < childCount; i++) {
