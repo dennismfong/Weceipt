@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -133,16 +134,18 @@ public class Handler {
   @RequestMapping(value="/test", method=RequestMethod.POST, consumes="application/json")
   @ResponseBody
   public UploadResponse test(@RequestBody UploadRequest req) {
-    String s3FilePath = "https://s3-us-west-1.amazonaws.com/weceiptuploads/close.jpg";
-    List<ReceiptItem> items = visionApiWrapper.getReceiptItems(s3FilePath);
-    double total = visionApiWrapper.getTotalAmount(s3FilePath);
-    double tax = visionApiWrapper.getTaxAmount(s3FilePath);
-
+    List<ReceiptItem> items = new ArrayList<ReceiptItem>();
+    for (int i = 0; i < 7; i++) {
+      items.add(ReceiptItem.builder()
+      .description("test" + String.valueOf(i) + " test 2.90")
+      .price(2.60)
+      .build());
+    }
 
     return UploadResponse.builder()
             .items(items)
-            .total(total)
-            .tax(tax)
+            .total(37.53)
+            .tax(0.0)
             .build();
   }
 }
