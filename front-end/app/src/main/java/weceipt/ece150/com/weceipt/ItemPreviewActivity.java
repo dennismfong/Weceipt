@@ -32,7 +32,7 @@ public class ItemPreviewActivity extends ListActivity implements AsyncResponse{
             String base64String = encodeToBase64(bitmap, Bitmap.CompressFormat.PNG, 100);
             HttpPostRequest postReq = new HttpPostRequest(this);
             postReq.delegate=this;
-            postReq.execute("https://weceipt.herokuapp.com/upload", base64String);
+            postReq.execute("169.231.98.33:8080/upload", base64String);
             Log.d("DENNISPOST", "done with post request");
         } catch (Exception e) {
             Log.e("error", e.toString());
@@ -65,6 +65,9 @@ public class ItemPreviewActivity extends ListActivity implements AsyncResponse{
     // Taking the result from the post request into output
     @Override
     public void processFinish(String output) {
+        /** Map String to PostResponsePojo
+         *
+         */
         initListItems();
         Log.d("DENNISPROCESSFINISH", output);
     }
