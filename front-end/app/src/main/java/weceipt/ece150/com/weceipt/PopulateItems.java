@@ -23,6 +23,7 @@ public class PopulateItems extends AppCompatActivity {
     private int price2 = 0;
     private int price3 = 0;
     private int price4 = 0;
+    int buttonPressed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,8 @@ public class PopulateItems extends AppCompatActivity {
             newButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
                     Intent intent = new Intent(PopulateItems.this, OptionActivity.class);
+                    buttonPressed = view.getId();
+                    Log.d("PRESSED ", String.valueOf(buttonPressed));
                     startActivityForResult(intent, 1);
                 }
             });
@@ -64,7 +67,6 @@ public class PopulateItems extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
         if (requestCode == 1) {
             if(resultCode == Activity.RESULT_OK){
                 String result=data.getStringExtra("quadrant");
