@@ -20,4 +20,5 @@
     <string name="price">Price</string>
     <string name="title_activity_user_split">UserSplit</string>
     <string name="title_activity_populate_items">PopulateItems</string>
+    <string name="title_activity_final_prices">FinalPrices</string>
 </resources>

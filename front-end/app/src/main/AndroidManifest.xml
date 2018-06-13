@@ -49,6 +49,10 @@
             android:label="@string/title_activity_populate_items"
             android:theme="@style/AppTheme" />
         <activity android:name=".ItemPreviewActivity" />
+        <activity
+            android:name=".FinalPrices"
+            android:label="@string/title_activity_final_prices"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>
