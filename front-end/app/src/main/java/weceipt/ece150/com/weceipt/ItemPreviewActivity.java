@@ -13,13 +13,16 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ItemPreviewActivity extends ListActivity implements AsyncResponse{
 
-    ArrayList<String> listItems=new ArrayList<String>();
-    ArrayAdapter<String> adapter;
+    ArrayList<ReceiptItem> listItems=new ArrayList<ReceiptItem>();
+    ArrayAdapter<ReceiptItem> adapter;
     int clickCounter=0;
 
     @Override
@@ -32,26 +35,25 @@ public class ItemPreviewActivity extends ListActivity implements AsyncResponse{
             String base64String = encodeToBase64(bitmap, Bitmap.CompressFormat.PNG, 100);
             HttpPostRequest postReq = new HttpPostRequest(this);
             postReq.delegate=this;
-            postReq.execute("169.231.98.33:8080/upload", base64String);
+            postReq.execute("http://169.231.98.33:8080/upload", base64String);
             Log.d("DENNISPOST", "done with post request");
         } catch (Exception e) {
             Log.e("error", e.toString());
         }
         setContentView(R.layout.activity_item_preview);
-        adapter=new ArrayAdapter<String>(this,
+        adapter=new ArrayAdapter<ReceiptItem>(this,
                 android.R.layout.simple_list_item_1,
                 listItems);
         setListAdapter(adapter);
     }
 
     public void addItems(View v) {
-        listItems.add("Clicked : "+clickCounter++);
+        listItems.add(ReceiptItem.builder().description("test").price(21.00).build());
         adapter.notifyDataSetChanged();
     }
 
-    public void initListItems() {
-        listItems.add("hey");
-        listItems.add("test");
+    public void addSingleItem(ReceiptItem item) {
+        listItems.add(item);
         adapter.notifyDataSetChanged();
     }
 
@@ -65,10 +67,16 @@ public class ItemPreviewActivity extends ListActivity implements AsyncResponse{
     // Taking the result from the post request into output
     @Override
     public void processFinish(String output) {
-        /** Map String to PostResponsePojo
-         *
-         */
-        initListItems();
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            PostResponsePojo res = mapper.readValue(output, PostResponsePojo.class);
+            for (ReceiptItem item: res.getItems()) {
+                addSingleItem(item);
+            }
+        } catch (IOException e) {
+            Log.e("DENNIS", "error mapping JSON\n" + e.toString());
+        }
+
         Log.d("DENNISPROCESSFINISH", output);
     }
 }
