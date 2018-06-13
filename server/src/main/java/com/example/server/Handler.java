@@ -129,4 +129,20 @@ public class Handler {
             .tax(tax)
             .build();
   }
+
+  @RequestMapping(value="/test", method=RequestMethod.POST, consumes="application/json")
+  @ResponseBody
+  public UploadResponse test(@RequestBody UploadRequest req) {
+    String s3FilePath = "https://s3-us-west-1.amazonaws.com/weceiptuploads/close.jpg";
+    List<ReceiptItem> items = visionApiWrapper.getReceiptItems(s3FilePath);
+    double total = visionApiWrapper.getTotalAmount(s3FilePath);
+    double tax = visionApiWrapper.getTaxAmount(s3FilePath);
+
+
+    return UploadResponse.builder()
+            .items(items)
+            .total(total)
+            .tax(tax)
+            .build();
+  }
 }
