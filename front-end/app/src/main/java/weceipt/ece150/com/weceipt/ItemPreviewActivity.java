@@ -10,6 +10,8 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -17,9 +19,7 @@ import java.util.ArrayList;
 public class ItemPreviewActivity extends ListActivity implements AsyncResponse{
 
     ArrayList<String> listItems=new ArrayList<String>();
-
     ArrayAdapter<String> adapter;
-
     int clickCounter=0;
 
     @Override
@@ -30,14 +30,14 @@ public class ItemPreviewActivity extends ListActivity implements AsyncResponse{
         try {
             Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
             String base64String = encodeToBase64(bitmap, Bitmap.CompressFormat.PNG, 100);
-            HttpPostRequest postReq = new HttpPostRequest();
+            HttpPostRequest postReq = new HttpPostRequest(this);
             postReq.delegate=this;
             postReq.execute("https://weceipt.herokuapp.com/upload", base64String);
+            Log.d("DENNISPOST", "done with post request");
         } catch (Exception e) {
             Log.e("error", e.toString());
         }
         setContentView(R.layout.activity_item_preview);
-        initListItems();
         adapter=new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1,
                 listItems);
@@ -49,9 +49,10 @@ public class ItemPreviewActivity extends ListActivity implements AsyncResponse{
         adapter.notifyDataSetChanged();
     }
 
-    private void initListItems() {
+    public void initListItems() {
         listItems.add("hey");
         listItems.add("test");
+        adapter.notifyDataSetChanged();
     }
 
     public static String encodeToBase64(Bitmap image, Bitmap.CompressFormat compressFormat, int quality)
@@ -64,6 +65,7 @@ public class ItemPreviewActivity extends ListActivity implements AsyncResponse{
     // Taking the result from the post request into output
     @Override
     public void processFinish(String output) {
+        initListItems();
         Log.d("DENNISPROCESSFINISH", output);
     }
 }

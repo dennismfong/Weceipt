@@ -3,6 +3,7 @@ package weceipt.ece150.com.weceipt;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
 
 import org.json.JSONObject;
 
@@ -14,6 +15,13 @@ import java.net.URL;
 
 public class HttpPostRequest extends AsyncTask<String, Void, String> {
     public AsyncResponse delegate = null;
+    ItemPreviewActivity activity;
+    ProgressDialog pd;
+
+    public HttpPostRequest(ItemPreviewActivity activity) {
+        this.activity = activity;
+        pd = new ProgressDialog(activity);
+    }
 
     @Override
     protected String doInBackground(String... params) {
@@ -53,13 +61,19 @@ public class HttpPostRequest extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPreExecute() {
-
+        super.onPreExecute();
+        pd.setTitle("Scanning receipt...");
+        pd.setCancelable(false);
+        pd.show();
+        Log.d("DENNISPOST", "preexecute");
     }
 
     // On getting result
     @Override
     protected void onPostExecute(String result){
         super.onPostExecute(result);
+        Log.d("DENNISPOST", "postexecute " + result);
+        pd.dismiss();
         delegate.processFinish(result);
     }
 }
