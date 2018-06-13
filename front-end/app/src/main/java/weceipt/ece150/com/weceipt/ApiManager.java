@@ -13,7 +13,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class ApiManager {
-    private static final String BASE_URL = "http://192.168.0.16:8080";
+    private static final String BASE_URL = "https://weceipt.herokuapp.com";
     private HttpGetRequest httpGetRequest = new HttpGetRequest();
     private HttpPostRequest httpPostRequest = new HttpPostRequest();
 
@@ -28,7 +28,7 @@ public class ApiManager {
     }
 
     public String postImage(String imageBase64String) {
-        String route = "/upload";
+        String route = "/test";
         try {
             return httpPostRequest.execute(BASE_URL + route, imageBase64String).get();
         } catch (Exception e) {

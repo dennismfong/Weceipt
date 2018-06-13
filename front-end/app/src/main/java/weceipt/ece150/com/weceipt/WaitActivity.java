@@ -1,46 +1,50 @@
 package weceipt.ece150.com.weceipt;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
+import java.io.InputStream;
 
 public class WaitActivity extends AppCompatActivity {
 
     private ApiManager apiManager = new ApiManager();
+    private static final int REQUEST_CAPTURE_IMAGE = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wait);
+    }
 
-        Bitmap bmp = null;
-        String filename = getIntent().getStringExtra("image");
-        try {
-            FileInputStream is = this.openFileInput(filename);
-            bmp = BitmapFactory.decodeStream(is);
-            is.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d("DENNIS", "BEFORE CODE");
+        if (resultCode == REQUEST_CAPTURE_IMAGE) {
+            Log.d("DENNIS", "GOT CODE");
+            try {
+                Uri imageUri = data.getData();
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+                byte[] byteArray = byteArrayOutputStream .toByteArray();
+                String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
+                apiManager.postImage(encoded);
+            } catch (Exception e) {
+                System.out.println(e);
+            }
         }
-        String encodedImage = encodeTobase64(bmp);
-        String result = apiManager.postImage(encodedImage);
-
-//        String presignedUrl = apiManager.getPresignedUrl();
-        AlertDialog.Builder builder1 = new AlertDialog.Builder(WaitActivity.this);
-        builder1.setMessage(result);
-        builder1.setCancelable(true);
-        AlertDialog alert11 = builder1.create();
-        alert11.show();
-
-
-        findViewById(R.id.loadingPanel).setVisibility(View.GONE);
     }
 
     public static String encodeTobase64(Bitmap image)
