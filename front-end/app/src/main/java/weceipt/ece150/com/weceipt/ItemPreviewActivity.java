@@ -14,7 +14,7 @@ import android.widget.ArrayAdapter;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
-public class ItemPreviewActivity extends ListActivity {
+public class ItemPreviewActivity extends ListActivity implements AsyncResponse{
 
     ArrayList<String> listItems=new ArrayList<String>();
 
@@ -31,6 +31,7 @@ public class ItemPreviewActivity extends ListActivity {
             Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
             String base64String = encodeToBase64(bitmap, Bitmap.CompressFormat.PNG, 100);
             HttpPostRequest postReq = new HttpPostRequest();
+            postReq.delegate=this;
             postReq.execute("https://weceipt.herokuapp.com/upload", base64String);
         } catch (Exception e) {
             Log.e("error", e.toString());
@@ -58,5 +59,11 @@ public class ItemPreviewActivity extends ListActivity {
         ByteArrayOutputStream byteArrayOS = new ByteArrayOutputStream();
         image.compress(compressFormat, quality, byteArrayOS);
         return Base64.encodeToString(byteArrayOS.toByteArray(), Base64.DEFAULT);
+    }
+
+    // Taking the result from the post request into output
+    @Override
+    public void processFinish(String output) {
+        Log.d("DENNISPROCESSFINISH", output);
     }
 }

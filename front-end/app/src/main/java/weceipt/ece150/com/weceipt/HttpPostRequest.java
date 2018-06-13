@@ -1,15 +1,20 @@
 package weceipt.ece150.com.weceipt;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
 
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class HttpPostRequest extends AsyncTask<String, Void, String> {
+    public AsyncResponse delegate = null;
+
     @Override
     protected String doInBackground(String... params) {
         String result = "test";
@@ -33,20 +38,28 @@ public class HttpPostRequest extends AsyncTask<String, Void, String> {
             os.flush();
             os.close();
 
-            result = conn.getResponseMessage();
+            BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
+            StringBuilder sb = new StringBuilder();
+            String output;
+            while ((output = br.readLine()) != null) {
+                sb.append(output);
+            }
             conn.disconnect();
+            return sb.toString();
         } catch (Exception e) {
-            Log.d("DENNISPOST: ERROR ", e.toString());
             return e.toString();
         }
-        Log.d("DENNISPOST: RESULT ", result);
-        return result;
+    }
+
+    @Override
+    protected void onPreExecute() {
+
     }
 
     // On getting result
+    @Override
     protected void onPostExecute(String result){
-
         super.onPostExecute(result);
-        Log.d("DENNISPOST", result);
+        delegate.processFinish(result);
     }
 }
