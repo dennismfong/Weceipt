@@ -63,7 +63,17 @@ public class PopulateItems extends AppCompatActivity {
             initialLocation.addView(button);
         }
 
-
+        final Button finalButton = (Button) findViewById(R.id.splitButton2);
+        finalButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                ArrayList<Integer> finalPrices = calculatePrices();
+                Bundle arrayListHolder = new Bundle();
+                arrayListHolder.putIntegerArrayList("arraylist", finalPrices);
+                Intent intent = new Intent(PopulateItems.this, FinalPrices.class);
+                intent.putExtras(arrayListHolder);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -77,7 +87,6 @@ public class PopulateItems extends AppCompatActivity {
                 ViewGroup parent = (ViewGroup) thisButton.getParent();
                 if (parent != null)
                     parent.removeView(thisButton);
-    
 
                 if (result.equals("topLeft")) {
                     LinearLayout newLayout = (LinearLayout) findViewById(R.id.top_left);
