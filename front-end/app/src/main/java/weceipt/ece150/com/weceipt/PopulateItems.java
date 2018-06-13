@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Layout;
 import android.util.Log;
 import android.view.DragEvent;
 import android.view.View;
@@ -69,8 +70,25 @@ public class PopulateItems extends AppCompatActivity {
             if(resultCode == Activity.RESULT_OK){
                 String result=data.getStringExtra("quadrant");
                 Log.d("WORK", result);
+                Button thisButton = (Button) findViewById(buttonPressed);
+
+                if (result.equals("topLeft")) {
+                    LinearLayout newLayout = (LinearLayout) findViewById(R.id.top_left);
+                    newLayout.addView(thisButton);
+                } else if (result.equals("topRight")) {
+                    LinearLayout newLayout = (LinearLayout) findViewById(R.id.top_right);
+                    newLayout.addView(thisButton);
+                } else if (result.equals("bottomLeft")) {
+                    LinearLayout newLayout = (LinearLayout) findViewById(R.id.bottom_left);
+                    newLayout.addView(thisButton);
+                } else {
+                    LinearLayout newLayout = (LinearLayout) findViewById(R.id.bottom_right);
+                    newLayout.addView(thisButton);
+                }
             }
+
             if (resultCode == Activity.RESULT_CANCELED) {
+                return;
             }
         }
     }
