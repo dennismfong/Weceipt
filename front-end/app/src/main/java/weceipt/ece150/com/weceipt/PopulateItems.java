@@ -1,15 +1,13 @@
 package weceipt.ece150.com.weceipt;
 
+import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipDescription;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.DragEvent;
 import android.view.View;
@@ -31,14 +29,25 @@ public class PopulateItems extends AppCompatActivity implements View.OnLongClick
         ReceiptItemWrapper itemWrapper = (ReceiptItemWrapper) intent.getSerializableExtra("data");
         ArrayList<ReceiptItem> items = itemWrapper.getItems();
         ArrayList<Button> Buttons = new ArrayList<Button>();
+        int i = 8080;
         for (ReceiptItem item : items) {
             String description = item.getDescription();
             double price = item.getPrice();
+            final int j = i;
 
             Button newButton = new Button(this);
             newButton.setText(item.toString());
             newButton.setTag(item);
+            newButton.setId(i);
+            newButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+                    Intent intent = new Intent(PopulateItems.this, OptionActivity.class);
+                    startActivityForResult(intent, 1);
+                }
+            });
+            Log.d("BUTTON", "created with " + Integer.toString(i));
             Buttons.add(newButton);
+            i++;
         }
 
         LinearLayout initialLocation = (LinearLayout) findViewById(R.id.top_left);
@@ -46,6 +55,19 @@ public class PopulateItems extends AppCompatActivity implements View.OnLongClick
             initialLocation.addView(button);
         }
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 1) {
+            if(resultCode == Activity.RESULT_OK){
+                String result=data.getStringExtra("quadrant");
+                Log.d("WORK", result);
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+            }
+        }
     }
 
     @Override
