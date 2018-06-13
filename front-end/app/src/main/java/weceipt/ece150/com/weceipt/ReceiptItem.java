@@ -21,4 +21,10 @@ public class ReceiptItem implements Serializable {
     }
     private String description;
     private double price;
+
+    @Override
+    public String toString() {
+        String description = this.getDescription().substring(0, this.getDescription().lastIndexOf(" "));
+        return description + '\n' + String.valueOf(this.getPrice());
+    }
 }
