@@ -44,6 +44,14 @@
             android:name=".AddImageActivity"
             android:label="@string/title_activity_add_image"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name=".UserSplit"
+            android:label="@string/title_activity_user_split"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".PopulateItems"
+            android:label="@string/title_activity_populate_items"
+            android:theme="@style/AppTheme"></activity>
         <activity android:name=".ItemPreviewActivity"></activity>
     </application>
 
