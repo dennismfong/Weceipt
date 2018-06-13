@@ -47,8 +47,8 @@
         <activity
             android:name=".PopulateItems"
             android:label="@string/title_activity_populate_items"
-            android:theme="@style/AppTheme"></activity>
-        <activity android:name=".ItemPreviewActivity"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".ItemPreviewActivity" />
     </application>
 
 </manifest>

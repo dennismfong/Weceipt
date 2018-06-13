@@ -31,7 +31,6 @@ public class ItemPreviewActivity extends ListActivity implements AsyncResponse{
     ArrayAdapter<ReceiptItem> adapter;
     EditText mDescriptionET;
     EditText mPriceET;
-    double mPrice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -33,10 +33,10 @@ public class PopulateItems extends AppCompatActivity implements View.OnLongClick
         ArrayList<Button> Buttons = new ArrayList<Button>();
         for (ReceiptItem item : items) {
             String description = item.getDescription();
-            String price = item.getPrice();
+            double price = item.getPrice();
 
             Button newButton = new Button(this);
-            newButton.setText(description + ", " + price);
+            newButton.setText(description + ", " + String.valueOf(price));
             newButton.setTag(item);
             Buttons.add(newButton);
         }
