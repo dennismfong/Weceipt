@@ -1,6 +1,7 @@
 package weceipt.ece150.com.weceipt;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.json.JSONObject;
 
@@ -17,7 +18,7 @@ public class HttpPostRequest extends AsyncTask<String, Void, String> {
             URL url = new URL(urlString);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
-            conn.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
+            conn.setRequestProperty("Content-Type", "application/json");
             conn.setRequestProperty("Accept","application/json");
             conn.setDoOutput(true);
             conn.setDoInput(true);
@@ -35,12 +36,17 @@ public class HttpPostRequest extends AsyncTask<String, Void, String> {
             result = conn.getResponseMessage();
             conn.disconnect();
         } catch (Exception e) {
+            Log.d("DENNISPOST: ERROR ", e.toString());
             return e.toString();
         }
+        Log.d("DENNISPOST: RESULT ", result);
         return result;
     }
 
+    // On getting result
     protected void onPostExecute(String result){
+
         super.onPostExecute(result);
+        Log.d("DENNISPOST", result);
     }
 }

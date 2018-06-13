@@ -2,10 +2,12 @@ package weceipt.ece150.com.weceipt;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -19,7 +21,10 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.io.File;
@@ -31,14 +36,16 @@ public class AddImageActivity extends AppCompatActivity {
 
     ImageView ivImage;
     Integer REQUEST_CAMERA = 1, SELECT_FILE=0;
-    private Uri mImageUri;
-    private String mCurrentPhotoPath;
+    Uri mImageUri;
+    String mCurrentPhotoPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_image);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        View b = findViewById(R.id.buttonDoOcr);
+        b.setVisibility(View.GONE);
         setSupportActionBar(toolbar);
 
         ivImage = (ImageView) findViewById(R.id.ivImage);
@@ -132,14 +139,26 @@ public class AddImageActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        View b = findViewById(R.id.buttonDoOcr);
+        b.setVisibility(View.VISIBLE);
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == REQUEST_CAMERA) {
                 this.grabImage(ivImage);
             } else if (requestCode == SELECT_FILE) {
                 Uri selectedImageUri = data.getData();
+                mImageUri = selectedImageUri;
                 ivImage.setImageURI(selectedImageUri);
             }
         }
+        ImageButton imgButton = (ImageButton) findViewById(R.id.buttonDoOcr);
+        imgButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AddImageActivity.this, ItemPreviewActivity.class);
+                intent.putExtra("imageUri", mImageUri.toString());
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
