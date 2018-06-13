@@ -36,7 +36,7 @@ public class PopulateItems extends AppCompatActivity implements View.OnLongClick
             double price = item.getPrice();
 
             Button newButton = new Button(this);
-            newButton.setText(description + ", " + String.valueOf(price));
+            newButton.setText(item.toString());
             newButton.setTag(item);
             Buttons.add(newButton);
         }

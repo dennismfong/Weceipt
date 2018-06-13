@@ -4,7 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity" >
+    tools:context=".MainActivity">
 
     <LinearLayout
         android:id="@+id/top_half"
@@ -12,79 +12,37 @@
         android:layout_height="fill_parent"
         android:layout_weight="1"
         android:orientation="horizontal">
+
         <ScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/border">
 
             <LinearLayout
                 android:id="@+id/top_left"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/button_drag"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="5 dozen eggs, 8.99" />
-
-                <Button
-                    android:id="@+id/button_drag11"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="5 dozen eggs, 8.99" />
-
-                <Button
-                    android:id="@+id/button_drag10"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="5 dozen eggs, 8.99" />
-
-                <Button
-                    android:id="@+id/button_drag9"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="5 dozen eggs, 8.99" />
-
-                <Button
-                    android:id="@+id/button_drag6"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="5 dozen eggs, 8.99" />
-
-                <Button
-                    android:id="@+id/button_drag5"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="5 dozen eggs, 8.99" />
-
-                <Button
-                    android:id="@+id/button_drag4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="5 dozen eggs, 8.99" />
-
-                <Button
-                    android:id="@+id/button_drag3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="5 dozen eggs, 8.99" />
-
-                <Button
-                    android:id="@+id/button_drag2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="5 dozen eggs, 8.99" />
             </LinearLayout>
         </ScrollView>
 
-        <LinearLayout
-            android:id="@+id/top_right"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="vertical"></LinearLayout>
+            android:background="@drawable/border">
+
+            <LinearLayout
+                android:id="@+id/top_right"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"></LinearLayout>
+        </ScrollView>
+
     </LinearLayout>
 
     <LinearLayout
@@ -94,18 +52,33 @@
         android:layout_weight="1"
         android:orientation="horizontal" >
 
-        <LinearLayout
-            android:id="@+id/bottom_left"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="vertical"></LinearLayout>
+            android:background="@drawable/border">
 
-        <LinearLayout
-            android:id="@+id/bottom_right"
+            <LinearLayout
+                android:id="@+id/bottom_left"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"></LinearLayout>
+        </ScrollView>
+
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="vertical"></LinearLayout>
+            android:background="@drawable/border">
+
+            <LinearLayout
+                android:id="@+id/bottom_right"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"></LinearLayout>
+        </ScrollView>
+
     </LinearLayout>
 </LinearLayout>
