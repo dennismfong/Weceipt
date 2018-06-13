@@ -74,6 +74,11 @@ public class PopulateItems extends AppCompatActivity {
                 Log.d("WORK", result);
                 Button thisButton = (Button) findViewById(buttonPressed);
 
+                ViewGroup parent = (ViewGroup) thisButton.getParent();
+                if (parent != null)
+                    parent.removeView(thisButton);
+    
+
                 if (result.equals("topLeft")) {
                     LinearLayout newLayout = (LinearLayout) findViewById(R.id.top_left);
                     newLayout.addView(thisButton);
