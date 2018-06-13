@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 @Builder
 
-public class PostResponsePojo implements Serializable {
+public class PostResponsePojo {
     private double total;
     private double tax;
     private ArrayList<ReceiptItem> items;
