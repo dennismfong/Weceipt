@@ -1,11 +1,111 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".PopulateItems"
-    tools:showIn="@layout/activity_populate_items">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity" >
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:id="@+id/top_half"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/top_left"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/button_drag"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="5 dozen eggs, 8.99" />
+
+                <Button
+                    android:id="@+id/button_drag11"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="5 dozen eggs, 8.99" />
+
+                <Button
+                    android:id="@+id/button_drag10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="5 dozen eggs, 8.99" />
+
+                <Button
+                    android:id="@+id/button_drag9"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="5 dozen eggs, 8.99" />
+
+                <Button
+                    android:id="@+id/button_drag6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="5 dozen eggs, 8.99" />
+
+                <Button
+                    android:id="@+id/button_drag5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="5 dozen eggs, 8.99" />
+
+                <Button
+                    android:id="@+id/button_drag4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="5 dozen eggs, 8.99" />
+
+                <Button
+                    android:id="@+id/button_drag3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="5 dozen eggs, 8.99" />
+
+                <Button
+                    android:id="@+id/button_drag2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="5 dozen eggs, 8.99" />
+            </LinearLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:id="@+id/top_right"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"></LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom_half"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:id="@+id/bottom_left"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"></LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/bottom_right"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"></LinearLayout>
+    </LinearLayout>
+</LinearLayout>

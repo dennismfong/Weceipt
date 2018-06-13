@@ -11,4 +11,12 @@ import lombok.Data;
 public class ReceiptItem implements Serializable {
     private String description;
     private String price;
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public String getPrice() {
+        return this.price;
+    }
 }
