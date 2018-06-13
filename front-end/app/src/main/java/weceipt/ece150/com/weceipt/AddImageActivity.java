@@ -47,7 +47,6 @@ public class AddImageActivity extends AppCompatActivity {
         View b = findViewById(R.id.buttonDoOcr);
         b.setVisibility(View.GONE);
         setSupportActionBar(toolbar);
-
         ivImage = (ImageView) findViewById(R.id.ivImage);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

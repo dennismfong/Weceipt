@@ -15,7 +15,9 @@
         completions."
     </string>
     <string name="title_activity_camera">CameraActivity</string>
-    <string name="title_activity_add_image">AddImageActivity</string>
+    <string name="title_activity_add_image">Home</string>
+    <string name="description">Description of item</string>
+    <string name="price">Price</string>
     <string name="title_activity_user_split">UserSplit</string>
     <string name="title_activity_populate_items">PopulateItems</string>
 </resources>
