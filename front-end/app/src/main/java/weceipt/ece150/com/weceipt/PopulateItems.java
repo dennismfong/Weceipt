@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Layout;
 import android.util.Log;
@@ -63,7 +64,7 @@ public class PopulateItems extends AppCompatActivity {
             initialLocation.addView(button);
         }
 
-        final Button finalButton = (Button) findViewById(R.id.splitButton2);
+        final FloatingActionButton finalButton = (FloatingActionButton) findViewById(R.id.splitButton2);
         finalButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 ArrayList<Double> finalPrices = calculatePrices();
@@ -72,7 +73,7 @@ public class PopulateItems extends AppCompatActivity {
                     finalPricesArray[i] = finalPrices.get(i);
 
                 Intent intent = new Intent(PopulateItems.this, FinalPrices.class);
-                intent.putExtra("arraylist", finalPricesArray);
+                intent.putExtra("arrayList", finalPricesArray);
                 startActivity(intent);
             }
         });
@@ -112,6 +113,10 @@ public class PopulateItems extends AppCompatActivity {
     }
 
     ArrayList<Double> calculatePrices() {
+        this.price1 = 0;
+        this.price2 = 0;
+        this.price3 = 0;
+        this.price4 = 0;
         ArrayList<Double> prices = new ArrayList<Double>(4);
         LinearLayout l1 = (LinearLayout) findViewById(R.id.top_left);
         final int childCount = l1.getChildCount();
@@ -124,7 +129,7 @@ public class PopulateItems extends AppCompatActivity {
 
         LinearLayout l2 = (LinearLayout) findViewById(R.id.top_right);
         final int childCount2 = l2.getChildCount();
-        for (int i = 0; i < childCount2; i++) {
+        for (int i = 1; i < childCount2; i++) {
             Button b = (Button) l2.getChildAt(i);
             ReceiptItem item = (ReceiptItem) b.getTag();
             this.price2 += item.getPrice();

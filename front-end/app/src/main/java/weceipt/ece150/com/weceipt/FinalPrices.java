@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class FinalPrices extends AppCompatActivity {
@@ -20,17 +21,18 @@ public class FinalPrices extends AppCompatActivity {
 
         final Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        double[] prices = bundle.getDoubleArray("ArrayList");
+        double[] prices = bundle.getDoubleArray("arrayList");
 
         TextView first = (TextView) findViewById(R.id.finalPrice1);
         TextView second = (TextView) findViewById(R.id.finalPrice2);
         TextView third = (TextView) findViewById(R.id.finalPrice3);
         TextView fourth = (TextView) findViewById(R.id.finalPrice4);
 
-        first.setText("Final Price: " + prices[0]);
-        second.setText("Final Price: " + prices[1]);
-        third.setText("Final Price: " + prices[2]);
-        fourth.setText("Final Price: " + prices[3]);
+        DecimalFormat df = new DecimalFormat("#.00");
 
+        first.setText("Final Price: " + df.format(prices[0]));
+        second.setText("Final Price: " + df.format(prices[1]));
+        third.setText("Final Price: " + df.format(prices[2]));
+        fourth.setText("Final Price: " + df.format(prices[3]));
     }
 }

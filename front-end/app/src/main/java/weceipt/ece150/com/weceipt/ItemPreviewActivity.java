@@ -42,7 +42,7 @@ public class ItemPreviewActivity extends ListActivity implements AsyncResponse{
             String base64String = encodeToBase64(bitmap, Bitmap.CompressFormat.PNG, 100);
             HttpPostRequest postReq = new HttpPostRequest(this);
             postReq.delegate=this;
-            postReq.execute("http://169.231.98.33:8080/test", base64String);
+            postReq.execute("https://weceipt.herokuapp.com/upload", base64String);
             Log.d("DENNISPOST", "done with post request");
         } catch (Exception e) {
             Log.e("error", e.toString());
